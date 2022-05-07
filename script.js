@@ -13,6 +13,39 @@ var j = 0;
 var timeEl = document.querySelector(".time");
 var secondsLeft = 30;
 
+const Questions = [
+  {
+    q: "Which of the options below is NOT a window object method?",
+    o: [
+      { text: "prompt()"},
+      { text: "alert()"},
+      { text: "show()"},
+      { text: "confirm()"},
+    ],
+    a: "show()"
+  },
+  {
+    q: "Which of the options below is NOT a valid JSON data type?",
+    o: [
+      { text: "number"},
+      { text: "null"},
+      { text: "string"},
+      { text: "undefined"},
+    ],
+    a: "undefined"
+  },
+  {
+    q: "Complete this statement. 'window.localStorage...'",
+    o: [
+      { text: "does not store key/value pairs in a web browser"},
+      { text: "stores the data for one session"},
+      { text: "stores the data with no expiration date"},
+      { text: "are for client(browser) appications"},
+    ],
+    a: "stores the data with no expiration date"
+  },
+];
+
 
 init.addEventListener("click", function() {
   starter.classList.add("hidden-panel");
@@ -33,6 +66,11 @@ function displayQuiz(x) {
   op2Button.textContent = Questions[x].o[1].text;
   op3Button.textContent = Questions[x].o[2].text;
   op4Button.textContent = Questions[x].o[3].text; 
+
+  op1Button.setAttribute("style", "color:black;");
+  op2Button.setAttribute("style", "color:black;");
+  op3Button.setAttribute("style", "color:black;");
+  op4Button.setAttribute("style", "color:black;");
     }
 
 function setTime() {
@@ -40,8 +78,8 @@ function setTime() {
     var timerInterval = setInterval(function() {
       secondsLeft--;
       timeEl.textContent = "Time left " + secondsLeft + "s";
-  
-      if(secondsLeft <= 0) {
+  console.log(j);
+      if(secondsLeft <= 0 || j < Questions.length) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
         // Calls function to create and append image
@@ -49,7 +87,6 @@ function setTime() {
       }
       }, 1000);
       function highScores() {
-        timeEl.textContent = " ";
         main.classList.add("hidden-panel");
       }
     }
@@ -58,9 +95,6 @@ function onClickHandler (e) {
   if (e.target.type == "submit") {
     console.log("yes");
     console.log(e.target);
-    j++;
-    displayQuiz(j);
-
 
     var input = e.target.innerHTML;
     var userChoice = e.target;
@@ -74,6 +108,9 @@ function onClickHandler (e) {
     console.log(input);
     console.log(userChoice);
   }
+  j++;
+  displayQuiz(j);
+  console.log(score);
 }
 
 
@@ -82,38 +119,7 @@ function onClickHandler (e) {
 
 
 
-    const Questions = [
-      {
-        q: "Which of the options below is NOT a window object method?",
-        o: [
-          { text: "prompt()"},
-          { text: "alert()"},
-          { text: "show()"},
-          { text: "confirm()"},
-        ],
-        a: "show()"
-      },
-      {
-        q: "Which of the options below is NOT a valid JSON data type?",
-        o: [
-          { text: "number"},
-          { text: "null"},
-          { text: "string"},
-          { text: "undefined"},
-        ],
-        a: "undefined"
-      },
-      {
-        q: "Complete this statement. 'window.localStorage...'",
-        o: [
-          { text: "does not store key/value pairs in a web browser"},
-          { text: "stores the data for one session"},
-          { text: "stores the data with no expiration date"},
-          { text: "are for client(browser) appications"},
-        ],
-        a: "store the data with no expiration date"
-      },
-    ];
+
 
     
 
