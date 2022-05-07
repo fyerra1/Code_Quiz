@@ -1,3 +1,155 @@
+var score = 0;
+var displayQuestion = document.querySelector("#question");
+var op1Button = document.querySelector("#op1");
+var op2Button = document.querySelector("#op2");
+var op3Button = document.querySelector("#op3");
+var op4Button = document.querySelector("#op4");
+var init = document.querySelector("#begin");
+var starter = document.querySelector(".starter-panel");
+var main = document.querySelector(".main-panel");
+var choice = document.querySelector(".option-container")
+
+var j = 0;
+var timeEl = document.querySelector(".time");
+var secondsLeft = 30;
+
+
+init.addEventListener("click", function() {
+  starter.classList.add("hidden-panel");
+  main.classList.remove("hidden-panel");
+  startquiz();
+  setTime();
+});
+
+function startquiz() {
+ displayQuiz(j);
+  }
+
+choice.addEventListener("click", onClickHandler)
+
+function displayQuiz(x) {
+  displayQuestion.textContent = Questions[x].q;
+  op1Button.textContent = Questions[x].o[0].text;
+  op2Button.textContent = Questions[x].o[1].text;
+  op3Button.textContent = Questions[x].o[2].text;
+  op4Button.textContent = Questions[x].o[3].text; 
+    }
+
+function setTime() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      timeEl.textContent = "Time left " + secondsLeft + "s";
+  
+      if(secondsLeft <= 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to create and append image
+        highScores();
+      }
+      }, 1000);
+      function highScores() {
+        timeEl.textContent = " ";
+        main.classList.add("hidden-panel");
+      }
+    }
+function onClickHandler (e) {
+  console.log(e.target.type);
+  if (e.target.type == "submit") {
+    console.log("yes");
+    console.log(e.target);
+    j++;
+    displayQuiz(j);
+
+
+    var input = e.target.innerHTML;
+    var userChoice = e.target;
+    if(input == Questions[x=j].a) {
+        userChoice.setAttribute("style", "color:green;")
+      }else{userChoice.setAttribute("style", "color:red;");
+    secondsLeft -= 5;}
+    score = secondsLeft;
+    console.log(score)
+    console.log(Questions[x=j].a);
+    console.log(input);
+    console.log(userChoice);
+  }
+}
+
+
+
+
+
+
+
+    const Questions = [
+      {
+        q: "Which of the options below is NOT a window object method?",
+        o: [
+          { text: "prompt()"},
+          { text: "alert()"},
+          { text: "show()"},
+          { text: "confirm()"},
+        ],
+        a: "show()"
+      },
+      {
+        q: "Which of the options below is NOT a valid JSON data type?",
+        o: [
+          { text: "number"},
+          { text: "null"},
+          { text: "string"},
+          { text: "undefined"},
+        ],
+        a: "undefined"
+      },
+      {
+        q: "Complete this statement. 'window.localStorage...'",
+        o: [
+          { text: "does not store key/value pairs in a web browser"},
+          { text: "stores the data for one session"},
+          { text: "stores the data with no expiration date"},
+          { text: "are for client(browser) appications"},
+        ],
+        a: "store the data with no expiration date"
+      },
+    ];
+
+    
+
+    // options.addEventListener("click", function() {
+    //   j++;
+    //   console.log(j);
+    // }
+    // )
+
+// options.addEventListener("click", function() {
+//   {displayQuestion.textContent = Questions[j].q;
+//     op1Button.textContent = Questions[j].a[0].text;
+//     op2Button.textContent = Questions[j].a[1].text;
+//     op3Button.textContent = Questions[j].a[2].text;
+//     op4Button.textContent = Questions[j].a[3].text;}
+   
+//     j++;
+//     i++;
+ 
+//   var input = event.target.innerHTML;
+//   var userChoice = event.target
+//   if(input == correctAnswers[i]) {
+//       userChoice.setAttribute("style", "color:green;")
+//     }else{userChoice.setAttribute("style", "color:red;")}
+//     console.log(correctAnswers);
+//       console.log(input);
+// }
+// );
+
+// const highScores = [
+//   {initials: "hf", score: 60},
+//   {initials: "hf", score: 60},
+//   {initials: "hf", score: 60},
+//   {initials: "hf", score: 60},
+// ]
+
 // var for html question and options (var question = document.queryselector("#question"))
 // variable array of questions (also with options or separately?)
 // variable for scores
@@ -14,105 +166,3 @@
 // high score is concat of var score & user input/name var(prompt or text box queryselector.value)
 // localStorage.setItem
 //
-
-const Questions = [
-  {
-    // id: 0,
-    q: "Which of the options below is NOT a window object method?",
-    a: [
-      { text: "prompt()", isCorrect: false },
-      { text: "alert()", isCorrect: false },
-      { text: "show()", isCorrect: true },
-      { text: "confirm()", isCorrect: false },
-    ],
-  },
-  {
-    // id: 1,
-    q: "Which of the options below is NOT a valid JSON data type?",
-    a: [
-      { text: "number", isCorrect: false },
-      { text: "null", isCorrect: false },
-      { text: "string", isCorrect: false },
-      { text: "undefined", isCorrect: true },
-    ],
-  },
-  {
-    // id: 2,
-    q: "Complete this statement. /'window.localStorage.../'",
-    a: [
-      { text: "does not store key/value pairs in a web browser", isCorrect: false },
-      { text: "stores the data for one session", isCorrect: false },
-      { text: "stores the data with no expiration date", isCorrect: true },
-      { text: "are for client(browser) appications", isCorrect: false },
-    ],
-  },
-];
-
-var score = 0;
-var displayQuestion = document.querySelector("#question");
-var options = document.querySelector(".option-container");
-var op1Button = document.querySelector("#op1");
-var op2Button = document.querySelector("#op2");
-var op3Button = document.querySelector("#op3");
-var op4Button = document.querySelector("#op4");
-
-var correctAnswers = ["show()", "undefined", "stores the data with no expiration date"];
-
-var j = 0;
-var i = 0;
-
-
-
-options.addEventListener("click", function(event) {
-{
-  displayQuestion.textContent = Questions[j].q;
-  op1Button.textContent = Questions[j].a[0].text;
-  op2Button.textContent = Questions[j].a[1].text;
-  op3Button.textContent = Questions[j].a[2].text;
-  op4Button.textContent = Questions[j].a[3].text;
-}  
-
-{j++;}
-
-{
-var input = event.target.innerHTML;
-var userChoice = event.target
-i++
-if(input == correctAnswers[i]) {
-  userChoice.setAttribute("style", "color:green;")
-}else{userChoice.setAttribute("style", "color:red;")}
-console.log(correctAnswers[i]);
-  console.log(input);
-}  
-});
-
-
-// var j = 0;
-// options.addEventListener("click", function () {
-//   console.log(Questions[j])
-//   j++
-// })
-
-
-
-// .textContent
-
-
-// op4Button.textContent = "yo what up"
-
-// for (var i = 0; i < animals.length; i++) {
-//   console.log(animals[i])
-// }
-
-// var j = 0;
-// op4Button.addEventListener("click", function() {
-//   console.log(Questions[j])
-//   j++
-// });
-
-const highScores = [
-  {initials: "hf", score: 60},
-  {initials: "hf", score: 60},
-  {initials: "hf", score: 60},
-  {initials: "hf", score: 60},
-]
