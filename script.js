@@ -63,7 +63,7 @@ const Questions = [
   }
 ];
 
-
+// click function to start quiz 
 init.addEventListener("click", function() {
   starter.classList.add("hidden-panel");
   main.classList.remove("hidden-panel");
@@ -75,8 +75,10 @@ function startquiz() {
  displayQuiz(j);
   }
 
+// click function to transition between questions 
 choice.addEventListener("click", onClickHandler)
 
+// function to display questions & options
 function displayQuiz(x) {
   displayQuestion.textContent = Questions[x].q;
   op1Button.textContent = Questions[x].o[0].text;
@@ -85,15 +87,34 @@ function displayQuiz(x) {
   op4Button.textContent = Questions[x].o[3].text; 
     }
 
+// funciton to evaluate user answers
+function onClickHandler (e) {
+  if (e.target.type == "submit") {
+    var input = e.target.innerHTML;
+  if(input == Questions[x=j].a) {
+    message.textContent = "correct!";
+    }else{message.textContent = "wrong!";;
+    // will decrease timer by 5 seconds if user selects wrong answer
+    secondsLeft -= 5;}
+  }
+  j++;
+  displayQuiz(j);
+  score = secondsLeft;
+// stores time left to local storage
+  localStorage.setItem("score", score);
+  render();
+}
+
+// function to start timer
 function setTime() {
     // Sets interval in variable
   var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = "Time left " + secondsLeft + "s";
   if(secondsLeft <= 0 || j == Questions.length) {
-        // Stops execution of action at set interval
+    // Stops execution of action at set interval or all questions have been answered
     clearInterval(timerInterval);
-        // Calls function to create and append image
+    // Calls function to hide questions/options and display textbox to enter initials
     highScores();
     }
       }, 1000);
@@ -103,23 +124,21 @@ function setTime() {
       }
     }
 
-function onClickHandler (e) {
-  if (e.target.type == "submit") {
-    var input = e.target.innerHTML;
-    var userChoice = e.target;
-  if(input == Questions[x=j].a) {
-    message.textContent = "correct!";
-    }else{message.textContent = "wrong!";;
-    secondsLeft -= 5;}
-  }
-  j++;
-  displayQuiz(j);
-  score = secondsLeft;
+submit.addEventListener("click", captureUser)
 
-  localStorage.setItem("score", score);
-  render();
+function captureUser(event) {
+event.preventDefault();
+// captures user initials
+var initials = document.querySelector("#initials").value;
+// stores user initials to local storage
+localStorage.setItem("initials", initials);
+render();
+
+user.classList.add("hidden-panel");
+scores.classList.remove("hidden-panel");
 }
 
+// function to render user initial and user score
 function render() {
   var score = localStorage.getItem("score");
   var initials = localStorage.getItem("initials");
@@ -127,15 +146,3 @@ function render() {
   userScore.textContent = score;
 }
 
-submit.addEventListener("click", captureUser)
-
-function captureUser(event) {
-event.preventDefault();
-var initials = document.querySelector("#initials").value;
-
-localStorage.setItem("initials", initials);
-render();
-
-user.classList.add("hidden-panel");
-scores.classList.remove("hidden-panel");
-}
