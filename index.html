@@ -5,26 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="./style.css" />
-    <title>Document</title>
+    <title>Javscript Quiz</title>
   </head>
   <body>
     <section class="starter-panel">
       <h1>Welcome</h1>
-      <p>This is a timed quiz. Each mistake will deduct 5s from counter</p>
+      <p>This is a timed-quiz. Each mistake will deduct 5s from the timer. Your score will be the remaining time. Good luck!</p>
       <button id="begin">Start Quiz</button>
     </section>
     <main class="main-panel hidden-panel">
       <secton class="question-container" id="question"></secton>
       <section class="option-container">
-        <button class="option" id="op1">prompt()</button>
-        <button class="option" id="op2">alert()</button>
-        <button class="option" id="op3">show()</button>
-        <button class="option" id="op4">confirm()</button>
+        <button class="option" id="op1"></button>
+        <button class="option" id="op2"></button>
+        <button class="option" id="op3"></button>
+        <button class="option" id="op4"></button>
 
         <div class="time">Time left 30s</div>
+
+        <p class="message"></p>
       </section>
     </main>
-  
+    <section>
+      <section class="input-group hidden-panel">
+          <input class="capture-user" type="text" name="initials" id="initials" placeholder="enter your initials"/>
+          <button class="capture-user" id="submit">Submit</button>
+      </section>
+        <section class="scores hidden-panel">
+          <h2>High Score:</h2>
+          <section class="card">
+          <p class="score-att"><strong>User:</strong> <span id="user-initial"></span></p>
+          <p class="score-att"><strong>Score:</strong> <span id="user-score"></span></p>
+          </section>
+      </section>
+    </section>
     <script src="./script.js"></script>
   </body>
 </html>

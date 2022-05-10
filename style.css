@@ -8,10 +8,20 @@ body{
 .starter-panel{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
-  /* min-height: 100vh;
-  min-width: 100vw; */
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.starter-panel h1 {
+  margin-top: .5rem;
+  margin-bottom: 0;
+}
+
+.starter-panel p{
+  width: 50%;
+  text-align: center;
 }
 
 .hidden-panel {
@@ -23,27 +33,19 @@ body{
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* justify-content: center; */
   align-items: center;
 }
 .question-container{
   margin: 10px;
   padding: 5px;
   width: 80vw;
-  height: 10vh;
-  background-color: rgb(228, 210, 213);
+  /* height: 10vh; */
+  /* background-color: rgb(228, 210, 213); */
   font-size: x-large;
   text-align: center;
 }
-.result{
-  margin: 10px;
-  padding: 5px;
-  width:80vw;
-  height: 10vh;
-  text-align: center;
-  font-size: 50px;
-    
-}
+
 .option-container{
   display: flex;
   flex-direction: column;
@@ -51,16 +53,65 @@ body{
   align-items: center; 
   margin: 10px;
   padding: 5px;
-  width: 80vw;
-  
-  background-color: rgb(228, 210, 213);   
-      
-}
-.option{    
-  width: 15vw;
-  font-size: larger;
-}
-.option:hover{
-  background-color: rgb(82, 53, 53);
+  width: 80vw;      
 }
 
+.option{    
+  font-size: 25px;
+  border: none;
+  background-color: white;
+  padding: 1rem;
+  opacity: 80%;
+}
+
+.option:hover{
+  transform: scale(1.1);
+}
+
+.time{
+  padding: 1rem;
+  font-size: 2rem;
+  color: red;
+}
+
+.message{
+  opacity: 50%;
+  color: black;
+}
+
+.input-group{
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+}
+
+.capture-user{
+  height: fit-content;
+  width: fit-content;
+  margin: 5rem .5rem;
+  
+}
+
+.card{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: .5rem;
+}
+
+.score-att{
+  margin: .5rem;
+}
+
+.scores{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.scores h2 {
+ text-align: center;
+}

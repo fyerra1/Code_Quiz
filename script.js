@@ -8,10 +8,17 @@ var init = document.querySelector("#begin");
 var starter = document.querySelector(".starter-panel");
 var main = document.querySelector(".main-panel");
 var choice = document.querySelector(".option-container")
+var message = document.querySelector(".message");
+var userInitials = document.querySelector("#initials");
+var submit = document.querySelector("#submit");
 
 var j = 0;
 var timeEl = document.querySelector(".time");
 var secondsLeft = 30;
+var userInitial = document.querySelector("#user-initial");
+var userScore = document.querySelector("#user-score");
+var user = document.querySelector(".input-group")
+var scores = document.querySelector(".scores")
 
 const Questions = [
   {
@@ -44,6 +51,16 @@ const Questions = [
     ],
     a: "stores the data with no expiration date"
   },
+  {
+    q: "Which of the following is NOT a valid javscript method?",
+    o: [
+      { text: "getElementsByClassName"},
+      { text: "getElementsByType"},
+      { text: "querySelector"},
+      { text: "querySelectorAll"},
+    ],
+    a: "getElementsByType"
+  }
 ];
 
 
@@ -66,109 +83,59 @@ function displayQuiz(x) {
   op2Button.textContent = Questions[x].o[1].text;
   op3Button.textContent = Questions[x].o[2].text;
   op4Button.textContent = Questions[x].o[3].text; 
-
-  op1Button.setAttribute("style", "color:black;");
-  op2Button.setAttribute("style", "color:black;");
-  op3Button.setAttribute("style", "color:black;");
-  op4Button.setAttribute("style", "color:black;");
     }
 
 function setTime() {
     // Sets interval in variable
-    var timerInterval = setInterval(function() {
-      secondsLeft--;
-      timeEl.textContent = "Time left " + secondsLeft + "s";
-  console.log(j);
-      if(secondsLeft <= 0 || j < Questions.length) {
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = "Time left " + secondsLeft + "s";
+  if(secondsLeft <= 0 || j == Questions.length) {
         // Stops execution of action at set interval
-        clearInterval(timerInterval);
+    clearInterval(timerInterval);
         // Calls function to create and append image
-        highScores();
-      }
+    highScores();
+    }
       }, 1000);
       function highScores() {
         main.classList.add("hidden-panel");
+        user.classList.remove("hidden-panel");
       }
     }
-function onClickHandler (e) {
-  console.log(e.target.type);
-  if (e.target.type == "submit") {
-    console.log("yes");
-    console.log(e.target);
 
+function onClickHandler (e) {
+  if (e.target.type == "submit") {
     var input = e.target.innerHTML;
     var userChoice = e.target;
-    if(input == Questions[x=j].a) {
-        userChoice.setAttribute("style", "color:green;")
-      }else{userChoice.setAttribute("style", "color:red;");
+  if(input == Questions[x=j].a) {
+    message.textContent = "correct!";
+    }else{message.textContent = "wrong!";;
     secondsLeft -= 5;}
-    score = secondsLeft;
-    console.log(score)
-    console.log(Questions[x=j].a);
-    console.log(input);
-    console.log(userChoice);
   }
   j++;
   displayQuiz(j);
-  console.log(score);
+  score = secondsLeft;
+
+  localStorage.setItem("score", score);
+  render();
 }
 
+function render() {
+  var score = localStorage.getItem("score");
+  var initials = localStorage.getItem("initials");
+  userInitial.textContent = initials;
+  userScore.textContent = score;
+}
 
+submit.addEventListener("click", captureUser)
 
+function captureUser(event) {
+event.preventDefault();
+var initials = document.querySelector("#initials").value;
 
+localStorage.setItem("initials", initials);
+render();
 
-
-
-
-
-    
-
-    // options.addEventListener("click", function() {
-    //   j++;
-    //   console.log(j);
-    // }
-    // )
-
-// options.addEventListener("click", function() {
-//   {displayQuestion.textContent = Questions[j].q;
-//     op1Button.textContent = Questions[j].a[0].text;
-//     op2Button.textContent = Questions[j].a[1].text;
-//     op3Button.textContent = Questions[j].a[2].text;
-//     op4Button.textContent = Questions[j].a[3].text;}
-   
-//     j++;
-//     i++;
- 
-//   var input = event.target.innerHTML;
-//   var userChoice = event.target
-//   if(input == correctAnswers[i]) {
-//       userChoice.setAttribute("style", "color:green;")
-//     }else{userChoice.setAttribute("style", "color:red;")}
-//     console.log(correctAnswers);
-//       console.log(input);
-// }
-// );
-
-// const highScores = [
-//   {initials: "hf", score: 60},
-//   {initials: "hf", score: 60},
-//   {initials: "hf", score: 60},
-//   {initials: "hf", score: 60},
-// ]
-
-// var for html question and options (var question = document.queryselector("#question"))
-// variable array of questions (also with options or separately?)
-// variable for scores
-
-// click eventlister to start quiz here
-// function to above eventlistner to append questions answers
-// html variables = append question from array (textContent)
-
-// click event listner for when user selects an option here
-//function to above event lister to evaluate answer, count score, subtract time if wrong, and tell them if wrong or right
-
-// for loop to transition to next set of questions/answers
-
-// high score is concat of var score & user input/name var(prompt or text box queryselector.value)
-// localStorage.setItem
-//
+user.classList.add("hidden-panel");
+scores.classList.remove("hidden-panel");
+}
